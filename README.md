@@ -1,4 +1,4 @@
-# Exploring API testing using Bruno. 
+# Exploring API testing using Bruno
 
 Exploring Bruno. Testing vacancy OData API as published by CBS.
 
