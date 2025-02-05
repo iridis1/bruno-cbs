@@ -1,0 +1,31 @@
+meta {
+  name: GET Vacancies
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v1/Vacancies
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.headers["content-type"]: contains application/json
+  res.headers["odata-version"]: eq "4.0"
+  res.body["@odata.context"]: contains /$metadata#Vacancies
+}
+
+tests {
+  const vacancyValidation = require('./scripts/vacancy-validation.js')
+  
+  test("GET /Vacancies should return vacancies", function () {
+    vacancyValidation.expectValidOdataResponse(res);  // Also tested as assertions
+    
+    const vacancies = res.body.value;
+    expect(vacancies.length).to.be.greaterThan(0)
+    vacancyValidation.expectValidVacancies(vacancies);
+  });
+  
+}
