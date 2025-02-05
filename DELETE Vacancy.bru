@@ -5,7 +5,11 @@ meta {
 }
 
 delete {
-  url: /Vacancies('12345678-0000-0000-0000-000000000000-nl-nl')
+  url: {{baseUrl}}/odata/v1/Vacancies('12345678-0000-0000-0000-000000000000-nl-nl')
   body: none
   auth: none
+}
+
+assert {
+  res.status: eq 405
 }
