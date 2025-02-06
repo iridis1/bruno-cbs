@@ -26,9 +26,9 @@ tests {
     vacancyValidation.expectValidVacancies(vacancies);  
     
     // Somehow this fails, reason unknown.
-    const allVacanciesResponse = await axios.get("https://www.cbs/nl/odata/v1/Vacancies");
+    const allVacanciesResponse = await axios.get(bru.getEnvVar("baseUrl") + "/odata/v1/Vacancies");
     const allVacancies = allVacanciesResponse.data.value;
-    expect(vacancies).to.have.lengthOf(allVacancies.data.value.length + skipped + 1);
+    expect(vacancies).to.have.lengthOf(allVacancies + skipped + 1);
     expect(vacancies[0]).to.equal(allVacancies[skipped]);
   });
   
