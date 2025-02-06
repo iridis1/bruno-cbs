@@ -1,0 +1,15 @@
+meta {
+  name: GET Nonexistent vacancy
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/odata/v1/Vacancies(00000000-0000-0000-0000-000000000000-nl-nl)
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 204
+}

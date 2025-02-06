@@ -1,0 +1,28 @@
+meta {
+  name: GET Vacancies Top
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/odata/v1/Vacancies?$top=2
+  body: none
+  auth: none
+}
+
+params:query {
+  $top: 2
+}
+
+tests {
+  const vacancyValidation = require('./scripts/vacancy-validation.js')
+  
+  test("GET /Vacancies$top=x should return specified number of vacancies", function () {
+    vacancyValidation.expectValidOdataResponse(res);  
+  
+    const vacancies = res.body.value;  
+    expect(vacancies).to.have.lengthOf(2);
+    vacancyValidation.expectValidVacancies(vacancies);
+  });
+  
+}
