@@ -1,0 +1,35 @@
+meta {
+  name: AsyncTest
+  type: http
+  seq: 7
+}
+
+get {
+  url: https://petstore.swagger.io/v2/pet/findByStatus?status=available
+  body: none
+  auth: none
+}
+
+params:query {
+  status: available
+}
+
+tests {
+  const axios = require("axios");
+  
+  test("Test with await but without async", function () {
+    var response = "No result yet";
+    response = await axios.get("https://petstore.swagger.io/v2/pet/findByStatus?status=sold");
+    console.log("***********************")  
+    console.log(response)
+    
+  });
+  
+  // test("Test with await and async", async function () {
+  //   var response = "No result yet";
+  //   var response = await axios.get("https://petstore.swagger.io/v2/pet/findByStatus?status=sold");
+  //   console.log("***********************")  
+  //   console.log(response)
+    
+  // });
+}
