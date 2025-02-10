@@ -5,13 +5,17 @@ meta {
 }
 
 get {
-  url: {{baseUrl}}/odata/v1/Vacancies?$skip=2
+  url: {{baseUrl}}/odata/v1/Vacancies?$skip={{skipped}}
   body: none
   auth: none
 }
 
 params:query {
-  $skip: 2
+  $skip: {{skipped}}
+}
+
+vars:pre-request {
+  skipped: 2
 }
 
 script:pre-request {
@@ -32,7 +36,7 @@ tests {
   test("GET /Vacancies$skip=x should return all but skipped vacancies", function () {
     vacancyValidation.expectValidOdataResponse(res);    
     
-    const skipped = 2;
+    const skipped = Number(bru.getRequestVar("skipped"));
     const vacancies = res.body.value;  
     vacancyValidation.expectValidVacancies(vacancies);  
     

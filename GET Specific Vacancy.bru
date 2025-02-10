@@ -27,7 +27,7 @@ script:pre-request {
   
   const allVacanciesResponse = await axios.get(bru.getEnvVar("baseUrl") + "/odata/v1/Vacancies");
   const vacancy = allVacanciesResponse.data.value[0]; // Get first vacancy
-  console.log(vacancy.UniqueId);
+  
   bru.setVar("vacancyId", vacancy.UniqueId);
   bru.setVar("vacancyTitle", vacancy.Title);
   
