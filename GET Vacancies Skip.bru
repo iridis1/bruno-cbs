@@ -14,6 +14,17 @@ params:query {
   $skip: 2
 }
 
+script:pre-request {
+  const axios = require("axios");
+  
+  const allVacanciesResponse = await axios.get(bru.getEnvVar("baseUrl") + "/odata/v1/Vacancies");
+  const allVacancies = allVacanciesResponse.data.value;
+  
+  bru.setVar("allVacancies", allVacancies);
+  
+  
+}
+
 tests {
   const axios = require("axios");
   const vacancyValidation = require("./scripts/vacancy-validation.js");
@@ -25,11 +36,9 @@ tests {
     const vacancies = res.body.value;  
     vacancyValidation.expectValidVacancies(vacancies);  
     
-    // Somehow this fails, reason unknown.
-    const allVacanciesResponse = await axios.get(bru.getEnvVar("baseUrl") + "/odata/v1/Vacancies");
-    const allVacancies = allVacanciesResponse.data.value;
-    expect(vacancies).to.have.lengthOf(allVacancies + skipped);
-    expect(vacancies[0]).to.equal(allVacancies[skipped]);
+    const allVacancies = bru.getVar("allVacancies");
+    expect(vacancies.length).to.equal(allVacancies.length - skipped);
+    expect(vacancies[0].UniqueId).to.equal(allVacancies[skipped].UniqueId);
   });
   
 }
