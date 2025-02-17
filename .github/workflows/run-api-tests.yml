@@ -29,5 +29,5 @@ jobs:
         if: always()
         with:
           files: |
-            results/*.xml
-            results/*.html
+            *.xml
+            *.html
