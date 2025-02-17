@@ -1,0 +1,1 @@
+bru run --env Production --reporter-junit results/junit.xml --reporter-html results/report.html
