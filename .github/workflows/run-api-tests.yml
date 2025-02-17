@@ -1,0 +1,25 @@
+name: Run API test on CBS vacancies using Bruno
+ 
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+ 
+      - name: Install Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest 
+          
+      - name: Install Bruno command line interface
+        run: npm install @usebruno/cli
+                  
+      - name: Execute tests
+        run: run
