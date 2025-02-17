@@ -22,7 +22,7 @@ jobs:
         run: npm -g install @usebruno/cli
                   
       - name: Execute tests
-        run: bru run --env Production --reporter-junit results/junit.xml --reporter-html results/report.html
+        run: bru run --env Production --reporter-junit junit.xml --reporter-html report.html
 
       - name: Publish test results
         uses: EnricoMi/publish-unit-test-result-action@v2
