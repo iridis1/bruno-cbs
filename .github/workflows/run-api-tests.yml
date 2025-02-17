@@ -23,3 +23,11 @@ jobs:
                   
       - name: Execute tests
         run: bru run --env Production --reporter-junit results/junit.xml --reporter-html results/report.html
+
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            results/*.xml
+            results/*.html
