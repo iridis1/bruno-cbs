@@ -19,7 +19,7 @@ jobs:
           node-version: latest 
           
       - name: Install Bruno command line interface
-        run: npm install @usebruno/cli
+        run: npm -g install @usebruno/cli
                   
       - name: Execute tests
-        run: ./run.cmd
+        run: bru run --env Production --reporter-junit results/junit.xml --reporter-html results/report.html
